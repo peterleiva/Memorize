@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D04B4A032AF33E1D000EFA78 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04B4A022AF33E1D000EFA78 /* CardView.swift */; };
 		D08D79582AF2C4AA00C0A1B5 /* MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08D79572AF2C4AA00C0A1B5 /* MemorizeApp.swift */; };
 		D08D795A2AF2C4AA00C0A1B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08D79592AF2C4AA00C0A1B5 /* ContentView.swift */; };
 		D08D795C2AF2C4AC00C0A1B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08D795B2AF2C4AC00C0A1B5 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D04B4A022AF33E1D000EFA78 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D08D79542AF2C4AA00C0A1B5 /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08D79572AF2C4AA00C0A1B5 /* MemorizeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeApp.swift; sourceTree = "<group>"; };
 		D08D79592AF2C4AA00C0A1B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				D08D79572AF2C4AA00C0A1B5 /* MemorizeApp.swift */,
 				D08D79592AF2C4AA00C0A1B5 /* ContentView.swift */,
+				D04B4A022AF33E1D000EFA78 /* CardView.swift */,
 				D08D795B2AF2C4AC00C0A1B5 /* Assets.xcassets */,
 				D08D795D2AF2C4AC00C0A1B5 /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08D795A2AF2C4AA00C0A1B5 /* ContentView.swift in Sources */,
+				D04B4A032AF33E1D000EFA78 /* CardView.swift in Sources */,
 				D08D79582AF2C4AA00C0A1B5 /* MemorizeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,7 +201,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -254,7 +258,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
