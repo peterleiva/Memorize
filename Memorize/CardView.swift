@@ -16,17 +16,15 @@ struct CardView: View {
       ZStack {
         let base = RoundedRectangle(cornerRadius: 25)
         
-        if !hidden {
+        Group {
           base.fill(.white)
           base.strokeBorder(lineWidth: 2)
           Text(content).font(.largeTitle)
-        } else {
-          base.fill()
-        }
+        }.opacity(hidden ? 0 : 1)
+        
+        base.fill().opacity(hidden ? 1: 0)
         
       }
-      .foregroundStyle(.orange)
-      .padding()
       .onTapGesture {
         toggle()
       }
@@ -39,4 +37,5 @@ struct CardView: View {
 
 #Preview {
   CardView (content: "🎃")
+    .padding(20).foregroundStyle(.blue)
 }
