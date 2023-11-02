@@ -8,29 +8,35 @@
 import SwiftUI
 
 struct CardView: View {
-  var name: String?
-  var hidden = false
+  let content: String
+  
+  @State var hidden = false
   
     var body: some View {
       ZStack {
+        let base = RoundedRectangle(cornerRadius: 25)
+        
         if !hidden {
-          RoundedRectangle(cornerRadius: 25)
-            .foregroundColor(.white)
-
-          RoundedRectangle(cornerRadius: 25)
-            .strokeBorder(lineWidth: 2)
-
-          Text(name ?? "").font(.largeTitle)
+          base.fill(.white)
+          base.strokeBorder(lineWidth: 2)
+          Text(content).font(.largeTitle)
         } else {
-          RoundedRectangle(cornerRadius: 25)
+          base.fill()
         }
         
       }
       .foregroundStyle(.orange)
       .padding()
+      .onTapGesture {
+        toggle()
+      }
     }
+  
+  func toggle() {
+    hidden = !hidden
+  }
 }
 
 #Preview {
-  CardView(name: "👻")
+  CardView (content: "🎃")
 }
