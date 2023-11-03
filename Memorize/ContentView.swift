@@ -34,17 +34,16 @@ struct ContentView: View {
   }
   
   var cardAdjuster: some View {
-    HStack(spacing: 30) {
+    Group {
 //      btnRemove
       cardThemeChoose
 //      btnAdd
     }
-    .imageScale(.large)
     .padding()
   }
     
   var cardThemeChoose: some View {
-    HStack {
+    HStack(spacing: 30) {
       ForEach(Theme.allCases, id: \.self) { theme in
         themeBtn(theme, label: theme.rawValue.capitalized, symbol: theme.symbol())
       }
@@ -58,8 +57,8 @@ struct ContentView: View {
       print("theme: \(data)")
     }, label: {
       VStack(alignment: .center) {
-        Image(systemName: symbol)
-        Text(label)
+        Image(systemName: symbol).imageScale(.large)
+        Text(label).font(.caption)
       }
     })
     .disabled(theme == selectedTheme)

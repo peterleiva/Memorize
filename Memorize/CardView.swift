@@ -10,7 +10,7 @@ import SwiftUI
 struct CardView: View {
   let content: String
   
-  @State var hidden = false
+  @State var hidden = true
   
     var body: some View {
       ZStack {
