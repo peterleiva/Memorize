@@ -49,7 +49,6 @@ struct ContentView: View {
     Button(action: {
       data = CardData().data(theme: theme)
       selectedTheme = theme
-      print("theme: \(data)")
     }, label: {
       VStack(alignment: .center) {
         Image(systemName: symbol).imageScale(.large).font(.title)
@@ -60,7 +59,7 @@ struct ContentView: View {
   }
   
   func widthThatBestFits() -> CGFloat {
-    return CGFloat(120)
+    CGFloat(120)
   }
 }
 
