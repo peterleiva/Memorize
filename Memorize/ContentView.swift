@@ -7,16 +7,38 @@
 
 import SwiftUI
 
+enum Flavor: String, CaseIterable, Identifiable {
+  case halloween, people, animals
+  var id: Self { self }
+}
+
 struct ContentView: View {
-    @State var cardCount = 4
-    let emojis = ["🤡", "👻", "🤖", "🎃", "💀", "🫵", "🧚", "🧠"]
+  @State var cardCount = 1
+
+  let emojis: [Flavor: [String]] = [
+    .halloween: ["🤡", "👻", "🤖", "🎃", "💀", "🫵", "🧚", "🧠"],
+    .animals: ["😺", "😺", "😺", "😺", "😺", "😺", "😺", "😺"],
+    .people: ["😱", "😱", "😱", "😱", "😱", "😱"]
+  ]
+  
+  @State private var selectedFlavor: Flavor = .halloween
+  
+  let tapOpt = Binding<Flavor>(
+    get: {
+      selectedFlavor
+    },
+    
+    set: {
+      selectedFlavor = $0
+    }
+  )
+
   
     var body: some View {
       VStack {
-        ScrollView {
-          cards
-        }
-
+        Text("Memorize!").font(.largeTitle)
+        
+        ScrollView { cards }
         Spacer()
         cardAdjuster
       }
@@ -24,9 +46,11 @@ struct ContentView: View {
     }
   
   var cards: some View {
-    LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
-      ForEach(0..<cardCount, id: \.self) {
-        CardView(content: emojis[$0])
+    let items = emojis[selectedFlavor]!
+    
+    return LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
+      ForEach(0..<cardCount, id: \.self) { index in
+        CardView(content: items[index])
           .aspectRatio(2/3, contentMode: .fit)
       }
     }
@@ -36,12 +60,24 @@ struct ContentView: View {
   var cardAdjuster: some View {
     HStack {
       btnRemove
-      Spacer()
+      themeChooser
       btnAdd
     }
     .imageScale(.large)
     .font(.title)
     .padding(.all, 20.0)
+  }
+  
+  var themeChooser: some View {
+    Picker("Flavor", selection: tapOpt) {
+      ForEach(Flavor.allCases) { flavor in
+        Text(flavor.rawValue.capitalized)
+      }
+    }.pickerStyle(.segmented)
+      .onChange(of: selectedFlavor) { selected in
+        print("contagem: \(cardCount)")
+        cardCount = 0
+      }
   }
   
   var btnAdd: some View {
@@ -57,13 +93,13 @@ struct ContentView: View {
       let value = cardCount + offset
       
       if offset >= 0 {
-        cardCount = min(emojis.count, value)
+        cardCount = min(emojis[selectedFlavor]?.count ?? 0, value)
       } else {
         cardCount = max(0, value)
       }
     }, label: {
       Image(systemName: symbol)
-    }).disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
+    }).disabled(cardCount + offset < 1 || cardCount + offset > emojis[selectedFlavor]?.count ?? 0)
   }
 }
 
