@@ -7,32 +7,10 @@
 
 import SwiftUI
 
-enum Flavor: String, CaseIterable, Identifiable {
-  case halloween, people, animals
-  var id: Self { self }
-}
 
 struct ContentView: View {
-  @State var cardCount = 1
-
-  let emojis: [Flavor: [String]] = [
-    .halloween: ["🤡", "👻", "🤖", "🎃", "💀", "🫵", "🧚", "🧠"],
-    .animals: ["😺", "😺", "😺", "😺", "😺", "😺", "😺", "😺"],
-    .people: ["😱", "😱", "😱", "😱", "😱", "😱"]
-  ]
-  
-  @State private var selectedFlavor: Flavor = .halloween
-  
-  let tapOpt = Binding<Flavor>(
-    get: {
-      selectedFlavor
-    },
-    
-    set: {
-      selectedFlavor = $0
-    }
-  )
-
+  @State private var selectedTheme: Theme = .halloween
+  @State var data: [String] = CardData().data(theme: .halloween)
   
     var body: some View {
       VStack {
@@ -46,61 +24,68 @@ struct ContentView: View {
     }
   
   var cards: some View {
-    let items = emojis[selectedFlavor]!
-    
     return LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
-      ForEach(0..<cardCount, id: \.self) { index in
-        CardView(content: items[index])
+      ForEach(0..<data.count, id: \.self) { index in
+        CardView(content: data[index])
           .aspectRatio(2/3, contentMode: .fit)
       }
     }
-    .foregroundStyle(.orange)
+    .foregroundStyle(selectedTheme.color())
   }
   
   var cardAdjuster: some View {
-    HStack {
-      btnRemove
-      themeChooser
-      btnAdd
+    HStack(spacing: 30) {
+//      btnRemove
+      cardThemeChoose
+//      btnAdd
     }
     .imageScale(.large)
-    .font(.title)
-    .padding(.all, 20.0)
+    .padding()
   }
-  
-  var themeChooser: some View {
-    Picker("Flavor", selection: tapOpt) {
-      ForEach(Flavor.allCases) { flavor in
-        Text(flavor.rawValue.capitalized)
+    
+  var cardThemeChoose: some View {
+    HStack {
+      ForEach(Theme.allCases, id: \.self) { theme in
+        themeBtn(theme, label: theme.rawValue.capitalized, symbol: theme.symbol())
       }
-    }.pickerStyle(.segmented)
-      .onChange(of: selectedFlavor) { selected in
-        print("contagem: \(cardCount)")
-        cardCount = 0
-      }
+    }
   }
-  
-  var btnAdd: some View {
-    cardCounterAdjuster(by: 1, symbol: "rectangle.stack.badge.plus.fill")
-  }
-  
-  var btnRemove: some View {
-    cardCounterAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
-  }
-  
-  func cardCounterAdjuster(by offset: Int, symbol: String) -> some View {
+    
+  func themeBtn(_ theme: Theme, label: String, symbol: String) -> some View {
     Button(action: {
-      let value = cardCount + offset
-      
-      if offset >= 0 {
-        cardCount = min(emojis[selectedFlavor]?.count ?? 0, value)
-      } else {
-        cardCount = max(0, value)
-      }
+      data = CardData().data(theme: theme)
+      selectedTheme = theme
+      print("theme: \(data)")
     }, label: {
-      Image(systemName: symbol)
-    }).disabled(cardCount + offset < 1 || cardCount + offset > emojis[selectedFlavor]?.count ?? 0)
+      VStack(alignment: .center) {
+        Image(systemName: symbol)
+        Text(label)
+      }
+    })
+    .disabled(theme == selectedTheme)
   }
+
+//  var btnAdd: some View {
+//    cardCounterAdjuster(by: 1, symbol: "rectangle.stack.badge.plus.fill")
+//  }
+//  
+//  var btnRemove: some View {
+//    cardCounterAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
+//  }
+  
+//  func cardCounterAdjuster(by offset: Int, symbol: String) -> some View {
+//    Button(action: {
+//      let value = cardCount + offset
+//      
+//      if offset >= 0 {
+//        cardCount = min(data.count, value)
+//      } else {
+//        cardCount = max(0, value)
+//      }
+//    }, label: {
+//      Image(systemName: symbol)
+//    }).disabled(cardCount + offset < 1 || cardCount + offset > data.count)
+//  }
 }
 
 #Preview {
