@@ -11,7 +11,7 @@ enum Theme: String, CaseIterable, Identifiable {
   case halloween, people, animals, toys
   var id: Self { self }
   
-  func color() -> some ShapeStyle {
+  func color() -> Color {
     switch self {
     case .halloween:
       return .orange

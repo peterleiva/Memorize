@@ -24,7 +24,7 @@ struct ContentView: View {
     }
   
   var cards: some View {
-    return LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
+    return LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits()))]) {
       ForEach(0..<data.count, id: \.self) { index in
         CardView(content: data[index])
           .aspectRatio(2/3, contentMode: .fit)
@@ -34,16 +34,11 @@ struct ContentView: View {
   }
   
   var cardAdjuster: some View {
-    Group {
-//      btnRemove
-      cardThemeChoose
-//      btnAdd
-    }
-    .padding()
+      cardThemeChoose.padding()
   }
     
   var cardThemeChoose: some View {
-    HStack(spacing: 30) {
+    HStack(spacing: 40) {
       ForEach(Theme.allCases, id: \.self) { theme in
         themeBtn(theme, label: theme.rawValue.capitalized, symbol: theme.symbol())
       }
@@ -63,28 +58,10 @@ struct ContentView: View {
     })
     .disabled(theme == selectedTheme)
   }
-
-//  var btnAdd: some View {
-//    cardCounterAdjuster(by: 1, symbol: "rectangle.stack.badge.plus.fill")
-//  }
-//  
-//  var btnRemove: some View {
-//    cardCounterAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
-//  }
   
-//  func cardCounterAdjuster(by offset: Int, symbol: String) -> some View {
-//    Button(action: {
-//      let value = cardCount + offset
-//      
-//      if offset >= 0 {
-//        cardCount = min(data.count, value)
-//      } else {
-//        cardCount = max(0, value)
-//      }
-//    }, label: {
-//      Image(systemName: symbol)
-//    }).disabled(cardCount + offset < 1 || cardCount + offset > data.count)
-//  }
+  func widthThatBestFits() -> CGFloat {
+    return CGFloat(120)
+  }
 }
 
 #Preview {

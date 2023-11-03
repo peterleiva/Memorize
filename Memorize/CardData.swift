@@ -8,7 +8,7 @@
 import Foundation
 
 struct CardData {
-  static let MIN_DATA = 4
+  static let MIN_DATA = 2
 
   let emojis: [Theme: [String]] = [
     .halloween: ["🤡", "👻", "🤖", "🎃", "💀", "🫵", "🧚", "🧠"],
