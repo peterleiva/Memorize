@@ -57,7 +57,7 @@ struct ContentView: View {
       print("theme: \(data)")
     }, label: {
       VStack(alignment: .center) {
-        Image(systemName: symbol).imageScale(.large)
+        Image(systemName: symbol).imageScale(.large).font(.title)
         Text(label).font(.caption)
       }
     })
