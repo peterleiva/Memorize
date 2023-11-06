@@ -14,7 +14,7 @@ extension MemoryGame {
     }
     
     let content: CardContent
-    var hidden = false
+    var hidden = true
     var matched = false
     
     var id: String

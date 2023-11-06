@@ -12,14 +12,17 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
   private(set) var cards: [Card]
   
   init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
-    cards = []
-
-    for index in 0..<max(2, numberOfPairsOfCards) {
+    cards = (0..<max(2, numberOfPairsOfCards)).map({ index in
+      var cards: [Card] = []
+      
       let content = cardContentFactory(index)
       
       cards.append(Card(content: content, id: "\(index + 1)a"))
       cards.append(Card(content: content, id: "\(index + 1)b"))
-    }
+      
+      return cards
+      
+    }).flatMap({ $0 }).shuffled()
   }
   
   func index(after i: Int) -> Int {

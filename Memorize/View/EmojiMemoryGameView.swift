@@ -9,9 +9,11 @@ import SwiftUI
 
 
 struct EmojiMemoryGameView: View {
-  @State private var selectedTheme: Theme = .halloween
-  @State var data: [String] = CardData().data(theme: .halloween)
   @ObservedObject var viewModel: EmojiMemoryGame
+  
+  var selectedTheme: Theme {
+    viewModel.theme
+  }
   
     var body: some View {
       VStack {
@@ -22,7 +24,8 @@ struct EmojiMemoryGameView: View {
         }
         Spacer()
         shuffleBtn
-//        cardAdjuster
+        Spacer()
+         cardAdjuster
       }
       .padding(10)
     }
@@ -54,7 +57,7 @@ struct EmojiMemoryGameView: View {
     
   var cardThemeChoose: some View {
     HStack(spacing: 40) {
-      ForEach(Theme.allCases, id: \.self) { theme in
+      ForEach(viewModel.themes) { theme in
         themeBtn(theme, label: theme.rawValue.capitalized, symbol: theme.symbol())
       }
     }
@@ -62,8 +65,7 @@ struct EmojiMemoryGameView: View {
     
   func themeBtn(_ theme: Theme, label: String, symbol: String) -> some View {
     Button(action: {
-      data = CardData().data(theme: theme)
-      selectedTheme = theme
+      viewModel.changeTheme(theme)
     }, label: {
       VStack(alignment: .center) {
         Image(systemName: symbol).imageScale(.large).font(.title)

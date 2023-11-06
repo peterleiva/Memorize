@@ -7,22 +7,17 @@
 
 import Foundation
 
-struct CardData {
-  static let MIN_DATA = 2
+struct Emoji {
+  private static let MIN_DATA = 2
 
-  let emojis: [Theme: [String]] = [
+  private static let emojis: [Theme: [String]] = [
     .halloween: ["🤡", "👻", "🤖", "🎃", "💀", "🫵", "🧚", "🧠"],
     .animals: ["😺", "🙈", "🐸", "🦁", "🐼", "🐝", "🐍"],
     .people: ["😱", "🕵️", "👩‍🏫", "🧑‍🍳", "🧑‍💼"],
     .toys: ["🚁", "🛬", "⛵️", "🪖"]
   ]
   
-  func data(theme: Theme) -> [String] {
-    let universe = emojis[theme] ?? []
-    let choosen = Int.random(in: (CardData.MIN_DATA - 1)..<universe.count)
-    
-    let res = universe.shuffled()[...choosen].map({item in [item, item]}).flatMap({i in i}).shuffled()
-
-    return res
+  static func byTheme(theme: Theme) -> [String] {
+    return emojis[theme] ?? []
   }
 }

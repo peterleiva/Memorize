@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D0115B532AF495EC005E130E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0115B522AF495EC005E130E /* Theme.swift */; };
-		D0115B552AF49947005E130E /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0115B542AF49947005E130E /* CardData.swift */; };
+		D0115B552AF49947005E130E /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0115B542AF49947005E130E /* Emoji.swift */; };
 		D04B4A032AF33E1D000EFA78 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04B4A022AF33E1D000EFA78 /* CardView.swift */; };
 		D0853D3B2AF8F5F600DC9116 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0853D3A2AF8F5F600DC9116 /* Card.swift */; };
 		D08D79582AF2C4AA00C0A1B5 /* MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08D79572AF2C4AA00C0A1B5 /* MemorizeApp.swift */; };
@@ -21,7 +21,7 @@
 
 /* Begin PBXFileReference section */
 		D0115B522AF495EC005E130E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		D0115B542AF49947005E130E /* CardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardData.swift; sourceTree = "<group>"; };
+		D0115B542AF49947005E130E /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		D04B4A022AF33E1D000EFA78 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D0853D3A2AF8F5F600DC9116 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D08D79542AF2C4AA00C0A1B5 /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +49,7 @@
 			children = (
 				D0115B522AF495EC005E130E /* Theme.swift */,
 				D0C3D8052AF7B85700A067AF /* MemoryGame.swift */,
-				D0115B542AF49947005E130E /* CardData.swift */,
+				D0115B542AF49947005E130E /* Emoji.swift */,
 				D0853D3A2AF8F5F600DC9116 /* Card.swift */,
 			);
 			path = Model;
@@ -171,7 +171,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0115B552AF49947005E130E /* CardData.swift in Sources */,
+				D0115B552AF49947005E130E /* Emoji.swift in Sources */,
 				D08D795A2AF2C4AA00C0A1B5 /* EmojiMemoryGameView.swift in Sources */,
 				D0115B532AF495EC005E130E /* Theme.swift in Sources */,
 				D04B4A032AF33E1D000EFA78 /* CardView.swift in Sources */,
