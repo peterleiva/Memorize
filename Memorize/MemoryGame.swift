@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent: Equatable> {
   private(set) var cards: [Card]
   
   init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
@@ -26,17 +26,27 @@ struct MemoryGame<CardContent> {
     cards.index(after: i)
   }
   
-  func choose(_ card: Card) {
+  mutating func choose(at index: Int) {
+    if index < 0 || index >= cards.count {
+      return
+    }
     
+    var card = cards[index]
+    cards[index] = card.toggle()
   }
   
   mutating func shuffle() {
     cards.shuffle()
   }
   
-  struct Card {
+  struct Card: Equatable {
     var hidden = false
     var matched = false
     let content: CardContent
+    
+    mutating func toggle() -> Self {
+      self.hidden = !hidden
+      return self
+    }
   }
 }

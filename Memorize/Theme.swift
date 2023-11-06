@@ -9,6 +9,7 @@ import SwiftUI
 
 enum Theme: String, CaseIterable, Identifiable {
   case halloween, people, animals, toys
+
   var id: Self { self }
   
   func color() -> Color {

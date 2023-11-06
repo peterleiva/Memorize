@@ -28,9 +28,14 @@ struct EmojiMemoryGameView: View {
   var cards: some View {
     return LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits()), spacing: 0)], spacing: 0) {
       ForEach(viewModel.cards.indices, id: \.self) { index in
-        CardView(viewModel.cards[index])
+        let card = viewModel.cards[index]
+        
+        CardView(card)
           .aspectRatio(2/3, contentMode: .fit)
           .padding(4)
+          .onTapGesture {
+            viewModel.choose(at: index)
+          }
       }
     }
     .foregroundStyle(selectedTheme.color())
