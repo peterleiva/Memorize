@@ -17,7 +17,9 @@ struct EmojiMemoryGameView: View {
       VStack {
         Text("Memorize!").font(.largeTitle)
         
-        ScrollView { cards }
+        ScrollView {
+          cards.animation(.default, value: viewModel.cards)
+        }
         Spacer()
         shuffleBtn
 //        cardAdjuster
@@ -27,14 +29,13 @@ struct EmojiMemoryGameView: View {
   
   var cards: some View {
     return LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits()), spacing: 0)], spacing: 0) {
-      ForEach(viewModel.cards.indices, id: \.self) { index in
-        let card = viewModel.cards[index]
+      ForEach(viewModel.cards) { card in
         
         CardView(card)
           .aspectRatio(2/3, contentMode: .fit)
           .padding(4)
           .onTapGesture {
-            viewModel.choose(at: index)
+            viewModel.choose(card)
           }
       }
     }

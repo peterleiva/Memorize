@@ -22,20 +22,27 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   @Published
-  private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+  private var model: MemoryGame<String>
 
 
   var cards: [MemoryGame<String>.Card] {
     model.cards
   }
   
+  init() {
+    model = EmojiMemoryGame.createMemoryGame()
+    model.shuffle()
+  }
+  
 //  MARK: - Intents
   
-  func choose(at index: Int) {
-    model.choose(at: index)
+  func choose(_ card: MemoryGame<String>.Card) {
+    model.choose(card)
   }
   
   func shuffle() -> Void {
+    model = EmojiMemoryGame.createMemoryGame()
     model.shuffle()
+    print(model.cards)
   }
 }

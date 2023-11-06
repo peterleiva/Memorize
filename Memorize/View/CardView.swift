@@ -27,9 +27,6 @@ struct CardView: View {
         base.fill().opacity(card.hidden ? 1 : 0)
         
       }
-//      .onTapGesture {
-//        toggle()
-//      }
     }
   
   init(_ card: MemoryGame<String>.Card) {
@@ -39,7 +36,7 @@ struct CardView: View {
 
 #Preview {
   ForEach(0..<2, id: \.self) { _ in
-    CardView(MemoryGame<String>.Card(content: "🦁"))
+    CardView(MemoryGame<String>.Card(content: "🦁", id: "some_id"))
       .padding(20).foregroundStyle(.blue)
   }
 }
