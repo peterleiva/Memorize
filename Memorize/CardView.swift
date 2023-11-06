@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct CardView: View {
-  let content: String
-  
-  @State var hidden = true
+  let card: MemoryGame<String>.Card
+
   
     var body: some View {
       ZStack {
@@ -19,23 +18,28 @@ struct CardView: View {
         Group {
           base.fill(.white)
           base.strokeBorder(lineWidth: 2)
-          Text(content).font(.largeTitle)
-        }.opacity(hidden ? 0 : 1)
+          Text(card.content)
+            .font(.system(size: 200))
+            .minimumScaleFactor(0.01)
+            .aspectRatio(1, contentMode: .fit)
+        }.opacity(card.hidden ? 0 : 1)
         
-        base.fill().opacity(hidden ? 1: 0)
+        base.fill().opacity(card.hidden ? 1 : 0)
         
       }
-      .onTapGesture {
-        toggle()
-      }
+//      .onTapGesture {
+//        toggle()
+//      }
     }
   
-  func toggle() {
-    hidden = !hidden
+  init(_ card: MemoryGame<String>.Card) {
+    self.card = card
   }
 }
 
 #Preview {
-  CardView (content: "🎃")
-    .padding(20).foregroundStyle(.blue)
+  ForEach(0..<2, id: \.self) { _ in
+    CardView(MemoryGame<String>.Card(content: "🦁"))
+      .padding(20).foregroundStyle(.blue)
+  }
 }

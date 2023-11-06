@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  EmojiMemoryGameView.swift
 //  Memorize
 //
 //  Created by Peter on 01/11/23.
@@ -8,9 +8,10 @@
 import SwiftUI
 
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
   @State private var selectedTheme: Theme = .halloween
   @State var data: [String] = CardData().data(theme: .halloween)
+  @ObservedObject var viewModel: EmojiMemoryGame
   
     var body: some View {
       VStack {
@@ -18,19 +19,27 @@ struct ContentView: View {
         
         ScrollView { cards }
         Spacer()
-        cardAdjuster
+        shuffleBtn
+//        cardAdjuster
       }
       .padding(10)
     }
   
   var cards: some View {
-    return LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits()))]) {
-      ForEach(0..<data.count, id: \.self) { index in
-        CardView(content: data[index])
+    return LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits()), spacing: 0)], spacing: 0) {
+      ForEach(viewModel.cards.indices, id: \.self) { index in
+        CardView(viewModel.cards[index])
           .aspectRatio(2/3, contentMode: .fit)
+          .padding(4)
       }
     }
     .foregroundStyle(selectedTheme.color())
+  }
+  
+  var shuffleBtn: some View {
+    Button("Shuffle") {
+      viewModel.shuffle()
+    }
   }
   
   var cardAdjuster: some View {
@@ -59,10 +68,10 @@ struct ContentView: View {
   }
   
   func widthThatBestFits() -> CGFloat {
-    CGFloat(120)
+    CGFloat(85)
   }
 }
 
 #Preview {
-    ContentView()
+    EmojiMemoryGameView(viewModel: EmojiMemoryGame())
 }

@@ -7,10 +7,35 @@
 
 import SwiftUI
 
-class EmojiMemoryGame {
-  var model: MemorizeGame<String>
+
+class EmojiMemoryGame: ObservableObject {
+  private static let emojis: [String] = CardData().emojis[.halloween] ?? []
+    
+  private static func createMemoryGame() -> MemoryGame<String> {
+    return  MemoryGame(numberOfPairsOfCards: 10) { index in
+      if emojis.indices.contains(index) {
+        return emojis[index]
+      } else {
+        return "⁉️"
+      }
+    }
+  }
   
-  init(model: MemorizeGame<String>) {
-    self.model = model
+  @Published
+  private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+
+
+  var cards: [MemoryGame<String>.Card] {
+    model.cards
+  }
+  
+//  MARK: - Intents
+  
+  func choose(_ card: MemoryGame<String>.Card) {
+    model.choose(card)
+  }
+  
+  func shuffle() -> Void {
+    model.shuffle()
   }
 }
