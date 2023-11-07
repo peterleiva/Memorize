@@ -28,12 +28,17 @@ class EmojiMemoryGame: ObservableObject {
   @Published
   var theme: Theme = .halloween
   
+  
   @Published
   var themes: [Theme]
 
 
   var cards: [MemoryGame<String>.Card] {
     model.cards
+  }
+  
+  var score: Int {
+    model.score
   }
   
   init() {

@@ -11,13 +11,17 @@ import SwiftUI
 struct EmojiMemoryGameView: View {
   @ObservedObject var viewModel: EmojiMemoryGame
   
+  var score: Int {
+    viewModel.score
+  }
+  
   var selectedTheme: Theme {
     viewModel.theme
   }
   
     var body: some View {
-      VStack {
-        Text("Memorize!").font(.largeTitle)
+      VStack  {
+        Text("Score: \(score)").font(.largeTitle).fontWeight(.semibold).foregroundStyle(score >= 0 ? .green : .red)
         
         ScrollView {
           cards.animation(.default, value: viewModel.cards)
