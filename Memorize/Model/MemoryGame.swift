@@ -10,7 +10,7 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
   private(set) var cards: [Card]
-  var score: Int = 0
+  var score = Score()
   
   var lastIndex: Int? {
     get {
@@ -47,9 +47,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
           if cards[lastIndex].content == cards[index].content {
             cards[lastIndex].matched = true
             cards[index].matched = true
-            score += 2
+            score.increment()
           } else {
-            score -= 1
+            score.decrement()
           }
         } else {
           lastIndex = index

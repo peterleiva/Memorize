@@ -38,7 +38,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   var score: Int {
-    model.score
+    model.score.value
   }
   
   init() {
