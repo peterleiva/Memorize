@@ -9,10 +9,8 @@ import SwiftUI
 
 
 class EmojiMemoryGame: ObservableObject {
-  private static var emojis: [String] = Emoji.byTheme(theme: .halloween)
-    
   private static func createMemoryGame(theme: Theme = .halloween, pairs: Int = Int.max) -> MemoryGame<String> {
-    emojis = Emoji.byTheme(theme: theme)
+    let emojis = Emoji.byTheme(theme: theme)
     let numberOfPairs = min(emojis.count, pairs)
     
     let game = MemoryGame(numberOfPairsOfCards: numberOfPairs) { index in
@@ -26,12 +24,7 @@ class EmojiMemoryGame: ObservableObject {
   private var model: MemoryGame<String>
   
   @Published
-  var theme: Theme = .halloween
-  
-  
-  @Published
-  var themes: [Theme]
-
+  var theme: Theme
 
   var cards: [MemoryGame<String>.Card] {
     model.cards
@@ -42,12 +35,22 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   init() {
-    self.themes = Theme.allCases
-
-    model = EmojiMemoryGame.createMemoryGame()
+    let theme = Theme.allCases.randomElement() ?? .halloween
+    self.theme = theme
+    model = EmojiMemoryGame.createMemoryGame(theme: theme)
+  }
+  
+  init(fromTheme theme: Theme) {
+    self.theme = theme
+    model = EmojiMemoryGame.createMemoryGame(theme: theme)
   }
   
 //  MARK: - Intents
+  
+  func randomTheme() {
+    theme = Theme.allCases.randomElement() ?? .halloween
+    model = EmojiMemoryGame.createMemoryGame(theme: theme)
+  }
   
   func changeTheme(_ theme: Theme) {
     self.theme = theme

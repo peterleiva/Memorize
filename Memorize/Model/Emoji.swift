@@ -8,8 +8,6 @@
 import Foundation
 
 struct Emoji {
-  private static let MIN_DATA = 2
-
   private static let emojis: [Theme: [String]] = [
     .halloween: ["🤡", "👻", "🤖", "🎃", "💀", "🫵", "🧚", "🧠"],
     .animals: ["😺", "🙈", "🐸", "🦁", "🐼", "🐝", "🐍"],

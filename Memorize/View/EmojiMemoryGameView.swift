@@ -26,10 +26,8 @@ struct EmojiMemoryGameView: View {
         ScrollView {
           cards.animation(.default, value: viewModel.cards)
         }
-        Spacer()
-        shuffleBtn
-        Spacer()
-         cardAdjuster
+        
+        newGameBtn.foregroundStyle(.white).background(.blue).buttonBorderShape(.roundedRectangle)
       }
       .padding(10)
     }
@@ -49,9 +47,9 @@ struct EmojiMemoryGameView: View {
     .foregroundStyle(selectedTheme.color())
   }
   
-  var shuffleBtn: some View {
-    Button("Shuffle") {
-      viewModel.shuffle()
+  var newGameBtn: some View {
+    Button("New Game") {
+      viewModel.randomTheme()
     }
   }
   
@@ -61,7 +59,7 @@ struct EmojiMemoryGameView: View {
     
   var cardThemeChoose: some View {
     HStack(spacing: 40) {
-      ForEach(viewModel.themes) { theme in
+      ForEach(Theme.allCases) { theme in
         themeBtn(theme, label: theme.rawValue.capitalized, symbol: theme.symbol())
       }
     }

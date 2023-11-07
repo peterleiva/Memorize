@@ -9,14 +9,15 @@ import Foundation
 
 extension MemoryGame {
   struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
-    var debugDescription: String {
-      "\(id): \(content) \(hidden ? "↓" : "⬆️")"
-    }
-    
     let content: CardContent
     var hidden = true
     var matched = false
+    var seen = false
     
     var id: String
+    
+    var debugDescription: String {
+      "\(id): \(content) \(hidden ? "↓" : "⬆️")"
+    }
   }
 }
