@@ -13,7 +13,17 @@ struct MemorizeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            EmojiMemoryGameView(viewModel: game)
+            EmojiMemoryGameView(game: game)
         }
     }
+}
+
+extension Array {
+  /**
+   * Repeats every single element of array by a certain number of times
+   */
+  func replicate(by times: Int) -> Self {
+    let replicated = self.map({ Array(repeating: $0, count: times)  }).flatMap {$0}
+    return replicated
+  }
 }

@@ -26,7 +26,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
   }
   
   init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
-    cards = (0..<max(2, numberOfPairsOfCards)).map({ index in
+    cards = (0..<numberOfPairsOfCards).map({ index in
       var cards: [Card] = []
       
       let content = cardContentFactory(index)

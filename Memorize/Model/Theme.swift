@@ -12,6 +12,10 @@ enum Theme: String, CaseIterable, Identifiable {
 
   var id: Self { self }
   
+  var name: String {
+    self.rawValue.capitalized
+  }
+  
   func color() -> Color {
     switch self {
     case .halloween:
@@ -20,7 +24,6 @@ enum Theme: String, CaseIterable, Identifiable {
       return .blue
     case .animals:
       return .green
-      
     case .toys:
       return .red
     }

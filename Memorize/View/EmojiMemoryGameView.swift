@@ -4,43 +4,50 @@
 //
 //  Created by Peter on 01/11/23.
 //
+//
 
 import SwiftUI
 
 
 struct EmojiMemoryGameView: View {
-  @ObservedObject var viewModel: EmojiMemoryGame
+  @ObservedObject var game: EmojiMemoryGame
   
   var score: Int {
-    viewModel.score
+    game.score
   }
   
   var selectedTheme: Theme {
-    viewModel.theme
+    game.theme
   }
   
     var body: some View {
       VStack  {
-        Text("Score: \(score)").font(.largeTitle).fontWeight(.semibold).foregroundStyle(score >= 0 ? .green : .red)
+        HStack(alignment: .top) {
+          themeIcon(selectedTheme)
+
+          Spacer()
+          
+          Text("Score: \(score)").font(.largeTitle).fontWeight(.semibold).foregroundStyle(score >= 0 ? .green : .red)
+        }.padding(10)
         
         ScrollView {
-          cards.animation(.default, value: viewModel.cards)
+          cards.animation(.default, value: game.cards)
         }
         
-        newGameBtn.foregroundStyle(.white).background(.blue).buttonBorderShape(.roundedRectangle)
+        newGameBtn
       }
       .padding(10)
     }
   
   var cards: some View {
     return LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits()), spacing: 0)], spacing: 0) {
-      ForEach(viewModel.cards) { card in
+      ForEach(game.cards) { card in
         
         CardView(card)
           .aspectRatio(2/3, contentMode: .fit)
           .padding(4)
           .onTapGesture {
-            viewModel.choose(card)
+            game.choose(card)
           }
       }
     }
@@ -49,7 +56,7 @@ struct EmojiMemoryGameView: View {
   
   var newGameBtn: some View {
     Button("New Game") {
-      viewModel.randomTheme()
+      game.randomTheme()
     }
   }
   
@@ -67,14 +74,16 @@ struct EmojiMemoryGameView: View {
     
   func themeBtn(_ theme: Theme, label: String, symbol: String) -> some View {
     Button(action: {
-      viewModel.changeTheme(theme)
-    }, label: {
-      VStack(alignment: .center) {
-        Image(systemName: symbol).imageScale(.large).font(.title)
-        Text(label).font(.caption)
-      }
-    })
+      game.changeTheme(theme)
+    }, label: { themeIcon(theme) })
     .disabled(theme == selectedTheme)
+  }
+  
+  func themeIcon(_ theme: Theme) -> some View {
+    VStack(alignment: .center) {
+      Image(systemName: theme.symbol()).imageScale(.large).font(.title)
+      Text(theme.name).font(.caption)
+    }
   }
   
   func widthThatBestFits() -> CGFloat {
@@ -83,5 +92,5 @@ struct EmojiMemoryGameView: View {
 }
 
 #Preview {
-    EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+    EmojiMemoryGameView(game: EmojiMemoryGame())
 }

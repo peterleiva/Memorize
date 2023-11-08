@@ -10,58 +10,55 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
   private static func createMemoryGame(theme: Theme = .halloween, pairs: Int = Int.max) -> MemoryGame<String> {
-    let emojis = Emoji.byTheme(theme: theme)
-    let numberOfPairs = min(emojis.count, pairs)
+    let emojis = Emoji(pairs: pairs, theme: theme).emojis
     
-    let game = MemoryGame(numberOfPairsOfCards: numberOfPairs) { index in
-      emojis.indices.contains(index) ? emojis[index] : "⁉️"
-    }
+    let game = MemoryGame(numberOfPairsOfCards: emojis.count) { emojis[$0] }
     
     return game
   }
   
   @Published
-  private var model: MemoryGame<String>
+  private var memoryGame: MemoryGame<String>
   
   @Published
   var theme: Theme
 
   var cards: [MemoryGame<String>.Card] {
-    model.cards
+    memoryGame.cards
   }
   
   var score: Int {
-    model.score.value
+    memoryGame.score.value
   }
   
   init() {
     let theme = Theme.allCases.randomElement() ?? .halloween
     self.theme = theme
-    model = EmojiMemoryGame.createMemoryGame(theme: theme)
+    memoryGame = EmojiMemoryGame.createMemoryGame(theme: theme)
   }
   
   init(fromTheme theme: Theme) {
     self.theme = theme
-    model = EmojiMemoryGame.createMemoryGame(theme: theme)
+    memoryGame = EmojiMemoryGame.createMemoryGame(theme: theme)
   }
   
 //  MARK: - Intents
   
   func randomTheme() {
     theme = Theme.allCases.randomElement() ?? .halloween
-    model = EmojiMemoryGame.createMemoryGame(theme: theme)
+    memoryGame = EmojiMemoryGame.createMemoryGame(theme: theme)
   }
   
   func changeTheme(_ theme: Theme) {
     self.theme = theme
-    model = EmojiMemoryGame.createMemoryGame(theme: theme)
+    memoryGame = EmojiMemoryGame.createMemoryGame(theme: theme)
   }
   
   func choose(_ card: MemoryGame<String>.Card) {
-    model.choose(card)
+    memoryGame.choose(card)
   }
   
   func shuffle() -> Void {
-    model.shuffle()
+    memoryGame.shuffle()
   }
 }
