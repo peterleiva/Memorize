@@ -14,7 +14,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
   
   var lastIndex: Int? {
     get {
-      let indices = cards.indices.filter {!cards[$0].hidden}
+      let indices = cards.indices.filter { !cards[$0].hidden }
       return indices.count == 1 ? indices.first : nil
     }
     
@@ -39,26 +39,30 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }).flatMap({ $0 }).shuffled()
   }
   
- 
+  
   mutating func choose(_ card: Card) {
-    if let index = cards.firstIndex(of: card) {
-      if cards[index].hidden && !cards[index].matched {
-        if let lastIndex {
-          if cards[lastIndex].content == cards[index].content {
-            cards[lastIndex].matched = true
-            cards[index].matched = true
-            score.increment()
-          } else {
-            score.decrement()
-          }
-        } else {
-          lastIndex = index
-        }
-        
-        cards[index].hidden = false
-      }
-      
+    guard let index = cards.firstIndex(of: card), cards[index].canPickUp else {
+      return
     }
+    
+    let currentCard = cards[index];
+    
+    if let lastIndex {
+      let lastCard = cards[lastIndex]
+      
+      if lastCard.content == currentCard.content {
+        cards[lastIndex].matched = true
+        cards[index].matched = true
+        score.increment()
+      } else {
+        score.decrement()
+      }
+    } else {
+      lastIndex = index
+    }
+    
+    cards[index].hidden = false
+    cards[index].seen = true
   }
   
   mutating func shuffle() {

@@ -27,7 +27,10 @@ struct EmojiMemoryGameView: View {
 
           Spacer()
           
-          Text("Score: \(score)").font(.largeTitle).fontWeight(.semibold).foregroundStyle(score >= 0 ? .green : .red)
+          Text("Score: \(score)")
+            .font(.largeTitle)
+            .fontWeight(.semibold)
+            .foregroundStyle(score >= 0 ? .green : .red)
         }.padding(10)
         
         ScrollView {

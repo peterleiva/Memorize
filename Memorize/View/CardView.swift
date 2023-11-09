@@ -18,24 +18,34 @@ struct CardView: View {
         Group {
           base.fill(.white)
           base.strokeBorder(lineWidth: 2)
-          textContent(card.content)
-          card.matched ? textContent("❌") : nil
-        }.opacity(card.hidden ? 0 : 1)
+          text
+        }.opacity(card.hidden && !card.matched ? 0 : 1)
         
         base.fill().opacity(card.hidden && !card.matched ? 1 : 0)
+
+        matchedText
       }
     }
+  
+  var text: some View {
+    cardText(card.content)
+  }
+  
+  var matchedText: some View {
+    card.matched ? cardText("❌", size: 50) : nil
+  }
   
   init(_ card: MemoryGame<String>.Card) {
     self.card = card
   }
   
-  func textContent(_ data: String) -> some View {
-    return Text(data)
-      .font(.system(size: 200))
+  private func cardText(_ content: String, size: Int = 200) -> some View {
+    return Text(content)
+      .font(.system(size: CGFloat(size)))
       .minimumScaleFactor(0.01)
       .aspectRatio(1, contentMode: .fit)
   }
+
 }
 
 #Preview {

@@ -19,5 +19,9 @@ extension MemoryGame {
     var debugDescription: String {
       "\(id): \(content) \(hidden ? "↓" : "⬆️")"
     }
+    
+    var canPickUp: Bool {
+      hidden && !matched
+    }
   }
 }
