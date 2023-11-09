@@ -50,8 +50,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     if let lastIndex {
       let lastCard = cards[lastIndex]
       
-      print("last card: \(lastCard)")
-
       if lastCard.match(to: currentCard) {
         cards[lastIndex].matched = true
         cards[index].matched = true

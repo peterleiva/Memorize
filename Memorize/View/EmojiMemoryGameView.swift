@@ -22,16 +22,19 @@ struct EmojiMemoryGameView: View {
   
     var body: some View {
       VStack  {
-        HStack(alignment: .top) {
+        timer
+
+        HStack(alignment: .center) {
           themeIcon(selectedTheme)
 
           Spacer()
           
           Text("Score: \(score)")
-            .font(.largeTitle)
             .fontWeight(.semibold)
             .foregroundStyle(score >= 0 ? .green : .red)
-        }.padding(10)
+        }
+        .font(.title2)
+        .padding(10)
         
         ScrollView {
           cards.animation(.default, value: game.cards)
@@ -57,10 +60,14 @@ struct EmojiMemoryGameView: View {
     .foregroundStyle(selectedTheme.color())
   }
   
+  var timer: some View {
+    Text(Date(), style: .timer).fontWeight(.semibold).font(.title)
+  }
+  
   var newGameBtn: some View {
     Button("New Game") {
       game.randomTheme()
-    }
+    }.buttonStyle(.borderedProminent).font(.title3)
   }
   
   var cardAdjuster: some View {
@@ -84,7 +91,7 @@ struct EmojiMemoryGameView: View {
   
   func themeIcon(_ theme: Theme) -> some View {
     VStack(alignment: .center) {
-      Image(systemName: theme.symbol()).imageScale(.large).font(.title)
+      Image(systemName: theme.symbol()).imageScale(.large)
       Text(theme.name).font(.caption)
     }
   }

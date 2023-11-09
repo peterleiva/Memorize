@@ -11,11 +11,11 @@ struct Score {
   var value: Int = 0
   
   mutating func increment() {
-    change(by: 2)
+    change(by: 200)
   }
   
   mutating func decrement() {
-    change(by: -1)
+    change(by: -100)
   }
   
   private mutating func change(by value: Int) {
