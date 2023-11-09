@@ -11,21 +11,21 @@ struct CardView: View {
   let card: MemoryGame<String>.Card
 
   
-    var body: some View {
-      ZStack {
-        let base = RoundedRectangle(cornerRadius: 25)
-        
-        Group {
-          base.fill(.white)
-          base.strokeBorder(lineWidth: 2)
-          text
-        }.opacity(card.hidden && !card.matched ? 0 : 1)
-        
-        base.fill().opacity(card.hidden && !card.matched ? 1 : 0)
-
-        matchedText
-      }
+  var body: some View {
+    ZStack {
+      let base = RoundedRectangle(cornerRadius: 25)
+      
+      Group {
+        base.fill(.white)
+        base.strokeBorder(lineWidth: 2)
+        text
+      }.opacity(card.hidden && !card.matched ? 0 : 1)
+      
+      base.fill().opacity(card.hidden && !card.matched ? 1 : 0)
+      
+      matchedText
     }
+  }
   
   var text: some View {
     cardText(card.content)

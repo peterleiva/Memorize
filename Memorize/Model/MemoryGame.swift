@@ -12,7 +12,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
   private(set) var cards: [Card]
   var score = Score()
   
-  var lastIndex: Int? {
+  private var lastIndex: Int? {
     get {
       let indices = cards.indices.filter { !cards[$0].hidden }
       return indices.count == 1 ? indices.first : nil
@@ -50,19 +50,23 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     if let lastIndex {
       let lastCard = cards[lastIndex]
       
-      if lastCard.content == currentCard.content {
+      print("last card: \(lastCard)")
+
+      if lastCard.match(to: currentCard) {
         cards[lastIndex].matched = true
         cards[index].matched = true
         score.increment()
-      } else {
+      } else if lastCard.seen || currentCard.seen {
         score.decrement()
       }
+      
+      cards[index].seen = true
+      cards[lastIndex].seen = true
     } else {
       lastIndex = index
     }
     
     cards[index].hidden = false
-    cards[index].seen = true
   }
   
   mutating func shuffle() {

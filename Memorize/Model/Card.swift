@@ -17,11 +17,15 @@ extension MemoryGame {
     var id: String
     
     var debugDescription: String {
-      "\(id): \(content) \(hidden ? "↓" : "⬆️")"
+      "\(id): \(content) \(hidden ? "↓" : "⬆️")\(seen ? " (👁️)" : "")"
     }
     
     var canPickUp: Bool {
       hidden && !matched
+    }
+    
+    func match(to card: Card) -> Bool {
+      content == card.content
     }
   }
 }
